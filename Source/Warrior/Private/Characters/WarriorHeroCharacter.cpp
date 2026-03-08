@@ -10,6 +10,9 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/WarriorInputComponent.h"
 #include "WarriorGameplayTags.h"
+#include "AbilitySystem/WarriorAttributeSet.h"
+#include "AbilitySystem/WarriorAbilitySystemComponent.h"
+#include "DataAssets/StartUpData/DataAsset_HeroStartUpData.h"
 
 #include "WarriorDebugHelper.h"
 AWarriorHeroCharacter::AWarriorHeroCharacter()
@@ -30,21 +33,29 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 	FollowCamera->bUsePawnControlRotation = false;
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);	
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 }
 
+
+
+void AWarriorHeroCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+}
+
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	checkf(InputConfigDataAsset,TEXT("forget to assign a valid adat asset as input config"))
-	ULocalPlayer* LocalPlayer= GetController<APlayerController>()->GetLocalPlayer();
-	UEnhancedInputLocalPlayerSubsystem* Subsystem=ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
+	checkf(InputConfigDataAsset, TEXT("forget to assign a valid adat asset as input config"));
+		ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
 	check(Subsystem);
 	Subsystem->AddMappingContext(InputConfigDataAsset->DefultMappingContext, 0);
-	UWarriorInputComponent* WarriorInputComponent =CastChecked<UWarriorInputComponent>(PlayerInputComponent);
+	UWarriorInputComponent* WarriorInputComponent = CastChecked<UWarriorInputComponent>(PlayerInputComponent);
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
-	
+
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 }
 
@@ -56,9 +67,9 @@ void AWarriorHeroCharacter::BeginPlay()
 
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
-	const FVector2D MovementVector= InputActionValue.Get<FVector2D>();
+	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
 	const FRotator MovementRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
-	
+
 	if (MovementVector.Y != 0.f) {
 		const FVector ForwardDirection = MovementRotation.RotateVector(FVector::ForwardVector);
 		AddMovementInput(ForwardDirection, MovementVector.Y);
@@ -71,10 +82,10 @@ void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue
 
 void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue)
 {
-	
+
 	const FVector2D LoolAxisVector = InputActionValue.Get<FVector2D>();
 	UE_LOG(LogTemp, Warning, TEXT("Look X=%f Y=%f"), LoolAxisVector.X, LoolAxisVector.Y);
-	
+
 	if (LoolAxisVector.X != 0.f) {
 		AddControllerYawInput(LoolAxisVector.X);
 	}
