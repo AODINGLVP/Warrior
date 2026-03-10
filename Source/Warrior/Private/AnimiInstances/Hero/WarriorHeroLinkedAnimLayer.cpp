@@ -2,4 +2,9 @@
 
 
 #include "AnimiInstances/Hero/WarriorHeroLinkedAnimLayer.h"
+#include "AnimiInstances/Hero/WarriorHerorAnimInstance.h"
 
+UWarriorHerorAnimInstance* UWarriorHeroLinkedAnimLayer::GetHeroAnimInstance() const
+{
+	return Cast<UWarriorHerorAnimInstance>(GetOwningComponent()->GetAnimInstance());
+}
