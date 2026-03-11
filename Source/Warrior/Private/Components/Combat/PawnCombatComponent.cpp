@@ -46,4 +46,65 @@ AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() co
 
 	return GetCharacterCarriedWeaponByTag(CurrentEquippedWeaponTag);
 }
+void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType)
+{
+	if (ToggleDamageType == EToggleDamageType::CurrentEquippedWeapon)
+	{
+		AWarriorWeaponBase* WeaponToToggle = GetCharacterCurrentEquippedWeapon();
 
+		check(WeaponToToggle);
+
+		if (bShouldEnable)
+		{
+			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+			Debug::Print(WeaponToToggle->GetName() + TEXT(" collision enabled"), FColor::Green);
+		}
+		else
+		{
+			WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			Debug::Print(WeaponToToggle->GetName() + TEXT(" collision disabled"), FColor::Red);
+		}
+	}
+}
+
+//void UPawnCombatComponent::ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType)
+//{
+//	if (ToggleDamageType == EToggleDamageType::CurrentEquippedWeapon)
+//	{
+//		ToggleCurrentEquippedWeaponCollision(bShouldEnable);
+//	}
+//	else
+//	{
+//		ToggleBodyCollsionBoxCollision(bShouldEnable, ToggleDamageType);
+//	}
+//}
+
+//void UPawnCombatComponent::OnHitTargetActor(AActor* HitActor)
+//{
+//}
+//
+//void UPawnCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
+//{
+//}
+//
+//void UPawnCombatComponent::ToggleCurrentEquippedWeaponCollision(bool bShouldEnable)
+//{
+//	AWarriorWeaponBase* WeaponToToggle = GetCharacterCurrentEquippedWeapon();
+//
+//	check(WeaponToToggle);
+//
+//	if (bShouldEnable)
+//	{
+//		WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+//	}
+//	else
+//	{
+//		WeaponToToggle->GetWeaponCollisionBox()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+//
+//		OverlappedActors.Empty();
+//	}
+//}
+//
+//void UPawnCombatComponent::ToggleBodyCollsionBoxCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType)
+//{
+//}

@@ -21,6 +21,15 @@ class WARRIOR_API AWarriorHeroCharacter : public AWarriorBaseCharacter
 	GENERATED_BODY()
 public:
 	AWarriorHeroCharacter();
+
+	//~ Begin IPawnCombatInterface Interface.
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	//~ End IPawnCombatInterface Interface
+
+	////~ Begin IPawnUIInterface Interface.
+	//virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	//virtual UHeroUIComponent* GetHeroUIComponent() const override;
+	////~ End IPawnUIInterface Interface
 protected:
 	//~ Begin APawn Interface.
 	virtual void PossessedBy(AController* NewController) override;
@@ -35,6 +44,9 @@ private:
 	UCameraComponent* FollowCamera;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	UHeroCombatComponent* HeroCombatComponent;
+
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+	//UHeroUIComponent* HeroUIComponent;
 #pragma endregion
 	
 #pragma region inputs
@@ -47,7 +59,10 @@ private:
 	void Input_AbilityInputPressed(FGameplayTag InInputTag);
 	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 
+	//void Input_PickUpStonesStarted(const FInputActionValue& InputActionValue);
 
+	//void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	//void Input_AbilityInputReleased(FGameplayTag InInputTag);
 #pragma endregion
 
 public:

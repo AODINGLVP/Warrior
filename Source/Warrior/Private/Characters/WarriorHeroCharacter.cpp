@@ -97,7 +97,7 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 {
 
 	const FVector2D LoolAxisVector = InputActionValue.Get<FVector2D>();
-	UE_LOG(LogTemp, Warning, TEXT("Look X=%f Y=%f"), LoolAxisVector.X, LoolAxisVector.Y);
+
 
 	if (LoolAxisVector.X != 0.f) {
 		AddControllerYawInput(LoolAxisVector.X);
@@ -115,4 +115,8 @@ void AWarriorHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
 void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
 {
 	WarriorAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
+}
+UPawnCombatComponent* AWarriorHeroCharacter::GetPawnCombatComponent() const
+{
+	return HeroCombatComponent;
 }

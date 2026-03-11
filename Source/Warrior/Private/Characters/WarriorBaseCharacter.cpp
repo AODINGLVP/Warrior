@@ -37,3 +37,7 @@ void AWarriorBaseCharacter::PossessedBy(AController* NewController)
 	}
 }
 
+UPawnCombatComponent* AWarriorBaseCharacter::GetPawnCombatComponent() const
+{
+	return nullptr;
+}
