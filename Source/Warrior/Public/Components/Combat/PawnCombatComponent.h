@@ -37,15 +37,16 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
 	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
+
+
+	virtual void OnHitTargetActor(AActor* HitActor);
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
 //
-//	virtual void OnHitTargetActor(AActor* HitActor);
-//	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
-//
-//protected:
+protected:
 //	virtual void ToggleCurrentEquippedWeaponCollision(bool bShouldEnable);
 //	virtual void ToggleBodyCollsionBoxCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType);
 //
-//	TArray<AActor*> OverlappedActors;
+	TArray<AActor*> OverlappedActors;
 
 private:
 	TMap<FGameplayTag, AWarriorWeaponBase*> CharacterCarriedWeaponMap;
