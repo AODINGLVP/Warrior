@@ -6,9 +6,9 @@
 #include "Components/Combat/EnemyCombatComponent.h"
 #include "Engine/AssetManager.h"
 #include "DataAssets/StartUpData/DataAsset_EnemyStartUpDataBase.h"
-//#include "Components/UI/EnemyUIComponent.h"
-//#include "Components/WidgetComponent.h"
-//#include "Widgets/WarriorWidgetBase.h"
+#include "Components/UI/EnemyUIComponent.h"
+#include "Components/WidgetComponent.h"
+#include "Widgets/WarriorWidgetBase.h"
 //#include "Components/BoxComponent.h"
 //#include "WarriorFunctionLibrary.h"
 //#include "GameModes/WarriorBaseGameMode.h"
@@ -30,10 +30,10 @@ AWarriorEnemyCharacter::AWarriorEnemyCharacter()
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>("EnemyCombatComponent");
 
-	//EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>("EnemyUIComponent");
+	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>("EnemyUIComponent");
 
-	//EnemyHealthWidgetComponent = CreateDefaultSubobject<UWidgetComponent>("EnemyHealthWidgetComponent");
-	//EnemyHealthWidgetComponent->SetupAttachment(GetMesh());
+	EnemyHealthWidgetComponent = CreateDefaultSubobject<UWidgetComponent>("EnemyHealthWidgetComponent");
+	EnemyHealthWidgetComponent->SetupAttachment(GetMesh());
 
 	//LeftHandCollisionBox = CreateDefaultSubobject<UBoxComponent>("LeftHandCollisionBox");
 	//LeftHandCollisionBox->SetupAttachment(GetMesh());
@@ -52,26 +52,26 @@ UPawnCombatComponent* AWarriorEnemyCharacter::GetPawnCombatComponent() const
 	return EnemyCombatComponent;
 }
 
-//UPawnUIComponent* AWarriorEnemyCharacter::GetPawnUIComponent() const
-//{
-//	return EnemyUIComponent;
-//}
+UPawnUIComponent* AWarriorEnemyCharacter::GetPawnUIComponent() const
+{
+	return EnemyUIComponent;
+}
 //
-//UEnemyUIComponent* AWarriorEnemyCharacter::GetEnemyUIComponent() const
-//{
-//	return EnemyUIComponent;
-//}
-//
-//void AWarriorEnemyCharacter::BeginPlay()
-//{
-//	Super::BeginPlay();
-//
-//	if (UWarriorWidgetBase* HealthWidget = Cast<UWarriorWidgetBase>(EnemyHealthWidgetComponent->GetUserWidgetObject()))
-//	{
-//		HealthWidget->InitEnemyCreatedWidget(this);
-//	}
-//}
-//
+UEnemyUIComponent* AWarriorEnemyCharacter::GetEnemyUIComponent() const
+{
+	return EnemyUIComponent;
+}
+
+void AWarriorEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (UWarriorWidgetBase* HealthWidget = Cast<UWarriorWidgetBase>(EnemyHealthWidgetComponent->GetUserWidgetObject()))
+	{
+		HealthWidget->InitEnemyCreatedWidget(this);
+	}
+}
+
 void AWarriorEnemyCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

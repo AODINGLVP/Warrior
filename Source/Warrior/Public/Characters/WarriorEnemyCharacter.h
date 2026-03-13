@@ -26,12 +26,12 @@ public:
 	//~ End IPawnCombatInterface Interface
 
 //	//~ Begin IPawnUIInterface Interface.
-//	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-//	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 //	//~ End IPawnUIInterface Interface
 ////
-////protected:
-////	virtual void BeginPlay() override;
+protected:
+	virtual void BeginPlay() override;
 //
 	//~ Begin APawn Interface.
 	virtual void PossessedBy(AController* NewController) override;
@@ -58,12 +58,12 @@ public:
 //	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
 //	FName RightHandCollisionBoxAttachBoneName;
 //
-//	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
-//	UEnemyUIComponent* EnemyUIComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UEnemyUIComponent* EnemyUIComponent;
 //
-//	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
-//	UWidgetComponent* EnemyHealthWidgetComponent;
-//
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UWidgetComponent* EnemyHealthWidgetComponent;
+
 //	UFUNCTION()
 //	virtual void OnBodyCollisionBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 //

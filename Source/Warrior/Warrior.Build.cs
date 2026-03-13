@@ -16,7 +16,8 @@ public class Warrior : ModuleRules
     "InputCore",
     "EnhancedInput",
     "GameplayTasks",
-    "GameplayTags"
+    "GameplayTags",
+    "UMG"
     });
 
         PrivateDependencyModuleNames.AddRange(new string[] { });
