@@ -5,8 +5,8 @@
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "Interfaces/PawnCombatInterface.h"
 #include "GenericTeamAgentInterface.h"
-//#include "Kismet/KismetMathLibrary.h"
-//#include "WarriorGameplayTags.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "WarriorGameplayTags.h"
 //#include "WarriorTypes/WarriorCountDownAction.h"
 //#include "WarriorGameInstance.h"
 //#include "Kismet/GameplayStatics.h"
@@ -89,62 +89,62 @@ bool UWarriorFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* Targe
 
     return false;
 }
-//
-//float UWarriorFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableFloat& InScalableFloat, float InLevel)
-//{
-//    return InScalableFloat.GetValueAtLevel(InLevel);
-//}
-//
-//FGameplayTag UWarriorFunctionLibrary::ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDifference)
-//{
-//    check(InAttacker && InVictim);
-//
-//    const FVector VictimForward = InVictim->GetActorForwardVector();
-//    const FVector VictimToAttackerNormalized = (InAttacker->GetActorLocation() - InVictim->GetActorLocation()).GetSafeNormal();
-//
-//    const float DotResult = FVector::DotProduct(VictimForward, VictimToAttackerNormalized);
-//    OutAngleDifference = UKismetMathLibrary::DegAcos(DotResult);
-//
-//    const FVector CrossResult = FVector::CrossProduct(VictimForward, VictimToAttackerNormalized);
-//
-//    if (CrossResult.Z < 0.f)
-//    {
-//        OutAngleDifference *= -1.f;
-//    }
-//
-//    if (OutAngleDifference >= -45.f && OutAngleDifference <= 45.f)
-//    {
-//        return WarriorGameplayTags::Shared_Status_HitReact_Front;
-//    }
-//    else if (OutAngleDifference < -45.f && OutAngleDifference >= -135.f)
-//    {
-//        return WarriorGameplayTags::Shared_Status_HitReact_Left;
-//    }
-//    else if (OutAngleDifference < -135.f || OutAngleDifference>135.f)
-//    {
-//        return WarriorGameplayTags::Shared_Status_HitReact_Back;
-//    }
-//    else if (OutAngleDifference > 45.f && OutAngleDifference <= 135.f)
-//    {
-//        return WarriorGameplayTags::Shared_Status_HitReact_Right;
-//    }
-//
-//    return WarriorGameplayTags::Shared_Status_HitReact_Front;
-//}
-//
-//bool UWarriorFunctionLibrary::IsValidBlock(AActor* InAttacker, AActor* InDefender)
-//{
-//    check(InAttacker && InDefender);
-//
-//    const float DotResult = FVector::DotProduct(InAttacker->GetActorForwardVector(), InDefender->GetActorForwardVector());
-//
-//    /* const FString DebugString = FString::Printf(TEXT("Dot Result: %f %s"),DotResult,DotResult<-0.1f? TEXT("Valid Block") : TEXT("InvalidBlock"));
-//
-//     Debug::Print(DebugString,DotResult<-0.1f? FColor::Green : FColor::Red);*/
-//
-//    return DotResult < -0.1f;
-//}
-//
+
+float UWarriorFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableFloat& InScalableFloat, float InLevel)
+{
+    return InScalableFloat.GetValueAtLevel(InLevel);
+}
+
+FGameplayTag UWarriorFunctionLibrary::ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDifference)
+{
+    check(InAttacker && InVictim);
+
+    const FVector VictimForward = InVictim->GetActorForwardVector();
+    const FVector VictimToAttackerNormalized = (InAttacker->GetActorLocation() - InVictim->GetActorLocation()).GetSafeNormal();
+
+    const float DotResult = FVector::DotProduct(VictimForward, VictimToAttackerNormalized);
+    OutAngleDifference = UKismetMathLibrary::DegAcos(DotResult);
+
+    const FVector CrossResult = FVector::CrossProduct(VictimForward, VictimToAttackerNormalized);
+
+    if (CrossResult.Z < 0.f)
+    {
+        OutAngleDifference *= -1.f;
+    }
+
+    if (OutAngleDifference >= -45.f && OutAngleDifference <= 45.f)
+    {
+        return WarriorGameplayTags::Shared_Status_HitReact_Front;
+    }
+    else if (OutAngleDifference < -45.f && OutAngleDifference >= -135.f)
+    {
+        return WarriorGameplayTags::Shared_Status_HitReact_Left;
+    }
+    else if (OutAngleDifference < -135.f || OutAngleDifference>135.f)
+    {
+        return WarriorGameplayTags::Shared_Status_HitReact_Back;
+    }
+    else if (OutAngleDifference > 45.f && OutAngleDifference <= 135.f)
+    {
+        return WarriorGameplayTags::Shared_Status_HitReact_Right;
+    }
+
+    return WarriorGameplayTags::Shared_Status_HitReact_Front;
+}
+
+bool UWarriorFunctionLibrary::IsValidBlock(AActor* InAttacker, AActor* InDefender)
+{
+    check(InAttacker && InDefender);
+
+    const float DotResult = FVector::DotProduct(InAttacker->GetActorForwardVector(), InDefender->GetActorForwardVector());
+
+     const FString DebugString = FString::Printf(TEXT("Dot Result: %f %s"),DotResult,DotResult<-0.1f? TEXT("Valid Block") : TEXT("InvalidBlock"));
+
+    // Debug::Print(DebugString,DotResult<-0.1f? FColor::Green : FColor::Red);
+
+    return DotResult < -0.1f;
+}
+
 //bool UWarriorFunctionLibrary::ApplyGameplayEffectSpecHandleToTargetActor(AActor* InInstigator, AActor* InTargetActor, const FGameplayEffectSpecHandle& InSpecHandle)
 //{
 //    UWarriorAbilitySystemComponent* SourceASC = NativeGetWarriorASCFromActor(InInstigator);

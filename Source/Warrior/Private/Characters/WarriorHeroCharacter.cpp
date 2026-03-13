@@ -82,9 +82,11 @@ void AWarriorHeroCharacter::BeginPlay()
 
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
+
+
 	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
 	const FRotator MovementRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
-
+	
 	if (MovementVector.Y != 0.f) {
 		const FVector ForwardDirection = MovementRotation.RotateVector(FVector::ForwardVector);
 		AddMovementInput(ForwardDirection, MovementVector.Y);
