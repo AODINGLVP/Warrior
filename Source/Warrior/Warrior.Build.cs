@@ -21,6 +21,7 @@ public class Warrior : ModuleRules
     "AnimGraphRuntime",
     "MotionWarping",
     "Niagara",
+     "NavigationSystem",
 
     });
 
