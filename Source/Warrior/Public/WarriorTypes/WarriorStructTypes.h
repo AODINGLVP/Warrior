@@ -59,3 +59,28 @@ struct FWarriorHeroWeaponData
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSoftObjectPtr<UTexture2D> SoftWeaponIconTexture;
 };
+USTRUCT(BlueprintType)
+struct FEnemySpawnInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> EnemyClass;
+
+	UPROPERTY(EditAnywhere)
+	int32 Count;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnInterval;
+};
+USTRUCT(BlueprintType)
+struct FEnemyWave
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	TArray<FEnemySpawnInfo> Enemies;
+
+	UPROPERTY(EditAnywhere)
+	float WaveDelay;
+};

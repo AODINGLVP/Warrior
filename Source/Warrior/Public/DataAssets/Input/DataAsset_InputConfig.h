@@ -12,6 +12,8 @@
 class UInputAction;
 class UInputMappingContext;
 
+
+
 USTRUCT(BlueprintType)
 struct FWarriorInputActionConfig
 {
